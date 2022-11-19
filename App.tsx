@@ -10,7 +10,6 @@ import {
 import './style.css';
 import toastr from 'toastr';
 import 'toastr/build/toastr.css';
-//import Popup from 'Popup';
 
 export default function App() {
   // tasks state
@@ -131,13 +130,18 @@ export default function App() {
     setToDo(updatedRecords);
   };
 
-  // function to cancel update
-  const cancelUpdate = (e) => {
+  // function to cancel
+  const cancelPopup = (e) => {
     setButtonPopupUpdate(false);
+    setButtonPopup(false);
     setUpdateTitle();
     setUpdateDeadline();
     setUpdateDescription();
     setUpdatePriority();
+    setNewTitle();
+    setNewDeadline();
+    setNewDescription();
+    setNewPriority();
   };
 
   // popup function
@@ -158,14 +162,14 @@ export default function App() {
         <FontAwesomeIcon icon={faBars} />
         FRAMEWORKS
         {/* add task */}
-        <div className="col">
+        <span className="addButton">
           <button
             onClick={() => setButtonPopup(true)}
-            className="btn btn-md btn-primary"
+            class="btn btn-md btn-primary"
           >
             <FontAwesomeIcon icon={faCirclePlus} /> Add
           </button>
-        </div>
+        </span>
       </h2>
 
       {/* Display ToDo List*/}
@@ -191,6 +195,7 @@ export default function App() {
               <React.Fragment key={task.id}>
                 <div className="col taskBg">
                   <table>
+                    <th></th>
                     <tbody>
                       <td>{task.Title} </td>
                       <td>{task.Description} </td>
@@ -247,7 +252,7 @@ export default function App() {
                             placeholder="Title"
                             type="text"
                             value={newTitle}
-                            onChange={(e) => setNewTitle(e.target.value)}
+                            onBlur={(e) => setNewTitle(e.target.value)}
                             required="required"
                             class="form-control"
                           />
@@ -262,7 +267,7 @@ export default function App() {
                             placeholder="Description"
                             type="text"
                             value={newDescription}
-                            onChange={(e) => setNewDescription(e.target.value)}
+                            onBlur={(e) => setNewDescription(e.target.value)}
                             class="form-control"
                             required="required"
                           />
@@ -277,7 +282,7 @@ export default function App() {
                               id="Deadline"
                               type="date"
                               value={newDeadline}
-                              onChange={(e) => setNewDeadline(e.target.value)}
+                              onBlur={(e) => setNewDeadline(e.target.value)}
                               class="form-control"
                               required="required"
                             />
@@ -294,7 +299,8 @@ export default function App() {
                               id="Priority_0"
                               type="radio"
                               class="custom-control-input"
-                              value="low"
+                              value="Low"
+                              onChange={(e) => setNewPriority(e.target.value)}
                               required="required"
                             />
                             <label
@@ -310,7 +316,8 @@ export default function App() {
                               id="Priority_1"
                               type="radio"
                               class="custom-control-input"
-                              value="med"
+                              value="Med"
+                              onChange={(e) => setNewPriority(e.target.value)}
                               required="required"
                             />
                             <label
@@ -326,7 +333,8 @@ export default function App() {
                               id="Priority_2"
                               type="radio"
                               class="custom-control-input"
-                              value="high"
+                              value="High"
+                              onChange={(e) => setNewPriority(e.target.value)}
                               required="required"
                             />
                             <label
@@ -347,7 +355,7 @@ export default function App() {
                               </button>
                               <button
                                 className="btn btn-danger btn-md"
-                                onClick={() => setButtonPopup(false)}
+                                onClick={(e) => cancelPopup(e)}
                               >
                                 <FontAwesomeIcon icon={faCircleXmark} /> Cancel
                               </button>
@@ -374,7 +382,7 @@ export default function App() {
                             name="Title"
                             type="text"
                             value={updateTitle}
-                            onChange={(e) => setUpdateTitle(e.target.value)}
+                            onBlur={(e) => setUpdateTitle(e.target.value)}
                             required="required"
                             class="form-control"
                           />
@@ -389,9 +397,7 @@ export default function App() {
                             placeholder="Description"
                             type="text"
                             value={updateDescription}
-                            onChange={(e) =>
-                              setUpdateDescription(e.target.value)
-                            }
+                            onBlur={(e) => setUpdateDescription(e.target.value)}
                             class="form-control"
                             required="required"
                           />
@@ -478,7 +484,7 @@ export default function App() {
                               </button>
                               <button
                                 className="btn btn-danger btn-md"
-                                onClick={(e) => cancelUpdate(e)}
+                                onClick={(e) => cancelPopup(e)}
                               >
                                 <FontAwesomeIcon icon={faCircleXmark} /> Cancel
                               </button>

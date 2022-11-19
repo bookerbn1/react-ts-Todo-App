@@ -1,6 +1,7 @@
 h2 {
   background-color: rgb(14, 41, 241);
   color: rgb(237, 238, 245);
+  padding: 10px 10px 10px 10px;
 }
 
 body {
@@ -10,6 +11,11 @@ body {
 
 .App {
   text-align: center;
+}
+
+.addButton {
+  position: relative;
+  left: 105px;
 }
 
 .tableHeader {
