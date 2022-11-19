@@ -1,0 +1,78 @@
+h2 {
+  background-color: rgb(14, 41, 241);
+  color: rgb(237, 238, 245);
+}
+
+body {
+  background-color: 'white';
+  color: rgb(85, 85, 85);
+}
+
+.App {
+  text-align: center;
+}
+
+.tableHeader {
+  background-color: rgb(237, 238, 245);
+  border-radius: 6px;
+  padding: 10px 0px 10px 0px;
+  text-align: left;
+  position: relative;
+}
+
+.taskBg {
+  background-color: 'white';
+  border-radius: 6px;
+  margin-bottom: 10px;
+  padding: 10px 10px 10px 10px;
+  text-align: center;
+  position: relative;
+}
+
+.taskBg .IsComplete .taskText {
+  text-decoration: line-through;
+  opacity: 0.3;
+}
+
+.btn-sm {
+  font-size: 10px;
+  width: 70px;
+}
+
+table {
+  table-layout: fixed;
+  width: 100%;
+  font-size: 80%;
+}
+
+td {
+  text-align: center;
+}
+
+.popup {
+  top: 50%;
+  left: 50%;
+  position: fixed;
+  background-color: 'white';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.overlay {
+  position: fixed;
+  opacity: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0);
+  pointer-events: none;
+}
+
+#overlay-active {
+  opacity: 1;
+  pointer-events: all;
+}
