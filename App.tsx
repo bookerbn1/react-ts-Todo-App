@@ -40,11 +40,6 @@ export default function App() {
   const [newDescription, setNewDescription] = useState();
   const [newPriority, setNewPriority] = useState();
 
-  const [updateTitle, setUpdateTitle] = useState();
-  const [updateDeadline, setUpdateDeadline] = useState();
-  const [updateDescription, setUpdateDescription] = useState();
-  const [updatePriority, setUpdatePriority] = useState();
-
   const [buttonPopup, setButtonPopup] = useState(false);
   const [buttonPopupUpdate, setButtonPopupUpdate] = useState(false);
 
@@ -107,27 +102,13 @@ export default function App() {
     toast('Task was edited succesfully');
   };
   // prepopulate form with data to be updated
-  const editTask = (id) => {
+  const editTask = (id, Title, Description, Deadline, Priority) => {
+    setNewTitle(Title);
+    setNewDescription(Description);
+    setNewDeadline(Deadline);
+    setNewPriority(Priority);
     setButtonPopupUpdate(true);
-    toDo.filter((task) => task.id === id).map(({ id }) => id).id;
-    setUpdateTitle({
-      updateTitle: toDo.filter((task) => task.id === id)[0],
-    });
-    setUpdateDescription({
-      updateDescription: toDo
-        .filter((task) => task.id === id)
-        .map(({ Description }) => Description).Description,
-    });
-    setUpdateDeadline({
-      updateDeadline: toDo
-        .filter((task) => task.id === id)
-        .map(({ Deadline }) => Deadline).Deadline,
-    });
-    setUpdatePriority({
-      updatePriority: toDo
-        .filter((task) => task.id === id)
-        .map(({ Priority }) => Priority).Priority,
-    });
+    toast.warning(Title);
   };
 
   // update task
@@ -144,10 +125,6 @@ export default function App() {
   const cancelPopup = (e) => {
     setButtonPopupUpdate(false);
     setButtonPopup(false);
-    setUpdateTitle();
-    setUpdateDeadline();
-    setUpdateDescription();
-    setUpdatePriority();
     setNewTitle();
     setNewDeadline();
     setNewDescription();
@@ -233,7 +210,15 @@ export default function App() {
                             {task.IsComplete ? null : (
                               <span
                                 title="Edit"
-                                onClick={() => editTask(task.id)}
+                                onClick={() =>
+                                  editTask(
+                                    task.id,
+                                    task.Title,
+                                    task.Description,
+                                    task.Deadline,
+                                    task.Priority
+                                  )
+                                }
                               >
                                 <button className="btn btn-sm btn-primary">
                                   <FontAwesomeIcon icon={faPen} /> UPDATE
@@ -396,10 +381,11 @@ export default function App() {
                             id="Title"
                             name="Title"
                             type="text"
-                            value={updateTitle}
-                            onBlur={(e) => setUpdateTitle(e.target.value)}
+                            value={newTitle}
+                            onBlur={(e) => setNewTitle(e.target.value)}
                             required="required"
                             class="form-control"
+                            disabled
                           />
                         </div>
                       </div>
@@ -409,10 +395,9 @@ export default function App() {
                           <input
                             id="Description"
                             name="Description"
-                            placeholder="Description"
                             type="text"
-                            value={updateDescription}
-                            onBlur={(e) => setUpdateDescription(e.target.value)}
+                            value={newDescription}
+                            onBlur={(e) => setNewDescription(e.target.value)}
                             class="form-control"
                             required="required"
                           />
@@ -426,10 +411,8 @@ export default function App() {
                             <input
                               id="Deadline"
                               type="date"
-                              value={updateDeadline}
-                              onChange={(e) =>
-                                setUpdateDeadline(e.target.value)
-                              }
+                              value={newDeadline}
+                              onChange={(e) => setNewDeadline(e.target.value)}
                               class="form-control"
                               required="required"
                             />
