@@ -10,7 +10,6 @@ import {
 import './style.css';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import customToast from './components/customToast';
 
 export default function App() {
   // create empty array for task list
@@ -245,7 +244,7 @@ export default function App() {
                             name="Description"
                             placeholder="Description"
                             type="text"
-                            value={newDescription}
+                            defaultValue={newDescription}
                             onBlur={(e) => setNewDescription(e.target.value)}
                             class="form-control"
                             required="required"
@@ -261,7 +260,7 @@ export default function App() {
                             <input
                               id="Deadline"
                               type="date"
-                              value={newDeadline}
+                              defaultValue={newDeadline}
                               onBlur={(e) => setNewDeadline(e.target.value)}
                               class="form-control"
                               required="required"
@@ -270,7 +269,7 @@ export default function App() {
                         </div>
                       </div>
                       <br></br>
-                      <radioGroup row="true">
+                      <radioGroup row="true" defaultValue={newPriority}>
                         <label class="form-label">Priority:</label>
                         <div class="form-group row">
                           <div class="custom-control custom-radio custom-control-inline">
