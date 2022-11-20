@@ -13,24 +13,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import customToast from './components/customToast';
 
 export default function App() {
-  // tasks state
-  const [toDo, setToDo] = useState([
-    {
-      Title: 'Task 1',
-      Description: 'Description of Task 1',
-      Deadline: '01/01/2022',
-      Priority: 'Low',
-      checkbox: <input type="checkbox" />,
-      IsComplete: false,
-    },
-    {
-      Title: 'Task 2',
-      Description: 'Description of Task 1',
-      Deadline: '01/01/2022',
-      Priority: 'Low',
-      IsComplete: false,
-    },
-  ]);
+  // create empty array for task list
+  const [toDo, setToDo] = useState([{}]);
 
   // Temp States for entry
   const [newTitle, setNewTitle] = useState();
@@ -60,7 +44,6 @@ export default function App() {
       return task;
     });
     setToDo(newTask);
-    toast.success('Successfully completed a task!!');
   };
 
   // function when the update button is clicked
@@ -139,6 +122,7 @@ export default function App() {
     setNewPriority();
   };
 
+  // render the app
   return (
     <div className="container App">
       <br />
@@ -230,7 +214,7 @@ export default function App() {
                   />
                 </div>
 
-                {/* Buttonpop up trigger */}
+                {/* popup form on trigger */}
                 <Popup trigger={buttonPopup}>
                   <form onSubmit={(e) => addTask()}>
                     <div class="card-header text-white bg-primary">
@@ -249,6 +233,7 @@ export default function App() {
                             onBlur={(e) => setNewTitle(e.target.value)}
                             required="required"
                             class="form-control"
+                            editable={true}
                           />
                         </div>
                       </div>
@@ -264,6 +249,7 @@ export default function App() {
                             onBlur={(e) => setNewDescription(e.target.value)}
                             class="form-control"
                             required="required"
+                            editable={true}
                           />
                         </div>
                       </div>
@@ -284,7 +270,7 @@ export default function App() {
                         </div>
                       </div>
                       <br></br>
-                      <div class="form-group">
+                      <radioGroup row="true">
                         <label class="form-label">Priority:</label>
                         <div class="form-group row">
                           <div class="custom-control custom-radio custom-control-inline">
@@ -357,7 +343,7 @@ export default function App() {
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </radioGroup>
                     </div>
                   </form>
                 </Popup>
@@ -367,8 +353,3 @@ export default function App() {
     </div>
   );
 }
-
-/* setUpdateData( id: task.id, Title: task.Title,
-                          Description: task.Description, Deadline:
-                          task.Deadline, Priority: task.Priority, IsComplete:
-                          task.IsComplete ? true : false); } */

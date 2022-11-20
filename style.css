@@ -35,11 +35,6 @@ body {
   position: relative;
 }
 
-.taskBg .IsComplete .taskText {
-  text-decoration: line-through;
-  opacity: 0.3;
-}
-
 .btn-sm {
   font-size: 10px;
   width: 70px;
