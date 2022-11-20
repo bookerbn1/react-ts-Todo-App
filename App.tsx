@@ -8,8 +8,9 @@ import {
   faBars,
 } from '@fortawesome/free-solid-svg-icons';
 import './style.css';
-import toastr from 'toastr';
-import 'toastr/build/toastr.css';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import customToast from './components/customToast';
 
 export default function App() {
   // tasks state
@@ -50,8 +51,9 @@ export default function App() {
   // function to add task
   const addTask = () => {
     setButtonPopup(false);
-
     if (newTitle) {
+      // Calling toast method by passing string
+      toast.success('Task was added succesfully');
       let num = toDo.length + 1;
       let newEntry = {
         id: num,
@@ -68,11 +70,15 @@ export default function App() {
       setNewPriority();
     }
   };
+
   // function to delete task
   const deleteTask = (id) => {
     let newTasks = toDo.filter((task) => task.id !== id);
     setToDo(newTasks);
+    // Calling toast method by passing string
+    toast.error('Deleted Task');
   };
+
   // function to mark task as done
   const markDone = (id) => {
     let newTask = toDo.map((task) => {
@@ -82,6 +88,7 @@ export default function App() {
       return task;
     });
     setToDo(newTask);
+    toast.success('Successfully completed a task!!');
   };
 
   // change task
@@ -96,13 +103,15 @@ export default function App() {
     };
     setUpdateDate(newEntry);
     updateTask();
+    // Calling toast method by passing string
+    toast('Task was edited succesfully');
   };
   // prepopulate form with data to be updated
   const editTask = (id) => {
     setButtonPopupUpdate(true);
-    id: toDo.filter((task) => task.id === id).map(({ id }) => id).id;
+    toDo.filter((task) => task.id === id).map(({ id }) => id).id;
     setUpdateTitle({
-      updateTitle: toDo.filter((task) => task.id === id).Title,
+      updateTitle: toDo.filter((task) => task.id === id)[0],
     });
     setUpdateDescription({
       updateDescription: toDo
@@ -128,6 +137,7 @@ export default function App() {
     let filteredRecords = [...toDo].filter((task) => task.id !== updateData.id);
     let updatedRecords = [...filteredRecords, updateData];
     setToDo(updatedRecords);
+    toast.success('Successfully Updated a task');
   };
 
   // function to cancel
@@ -235,6 +245,11 @@ export default function App() {
                       </td>
                     </tbody>
                   </table>
+                  <ToastContainer
+                    closeButton={false}
+                    theme="dark"
+                    position="bottom-right"
+                  />
                 </div>
 
                 {/* Buttonpop up trigger */}
@@ -372,7 +387,7 @@ export default function App() {
                 <Popup trigger={buttonPopupUpdate}>
                   <form onsubmit={(e) => updateTask()}>
                     <div class="card-header text-white bg-primary">
-                      <FontAwesomeIcon icon={faCirclePlus} /> Add Task
+                      <FontAwesomeIcon icon={faCirclePlus} /> Edit Task
                     </div>
                     <div class="card-body">
                       <div class="form-group row">
