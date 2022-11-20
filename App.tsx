@@ -30,9 +30,10 @@ export default function App() {
   // function to delete task
   const deleteTask = (newTitle) => {
     let newTasks = toDo.filter((task) => task.Title !== newTitle);
-    setToDo(newTasks);
-    // Calling toast method by passing string
+    // Calling toast method for task deletion
     toast.error('Deleted Task');
+    // exporting array
+    setToDo(newTasks);
   };
 
   // function to mark task as done
@@ -90,9 +91,9 @@ export default function App() {
   const addTask = () => {
     setButtonPopup(false);
     if (!toDo.some((toDo) => toDo.Title == newTitle)) {
-      // Calling toast method by passing string
+      // Calling toast method for adding a task
       toast.success('Task was added succesfully');
-      let num = toDo.length + 1;
+      // creating a new array entry
       let newEntry = {
         Title: newTitle,
         Description: newDescription,
@@ -100,6 +101,7 @@ export default function App() {
         Priority: newPriority,
         IsComplete: false,
       };
+      // inserting the new array entry
       setToDo([...toDo, newEntry]);
     } else {
       let newTask = toDo.map((task) => {
@@ -152,7 +154,7 @@ export default function App() {
         </tbody>
       </table>
       <hr></hr>
-      {toDo && toDo.length ? '' : 'No Tasks...'}
+      {toDo && toDo.length ? '' : 'Please Refresh Page'}
       {toDo &&
         toDo
           .sort((a, b) => (a.Deadline > b.Deadline ? 1 : -1))
@@ -209,146 +211,145 @@ export default function App() {
                       </td>
                     </tbody>
                   </table>
-                  <ToastContainer
-                    closeButton={false}
-                    theme="dark"
-                    position="bottom-right"
-                  />
                 </div>
+                <ToastContainer
+                  closeButton={false}
+                  theme="dark"
+                  position="bottom-right"
+                />
 
                 {/* popup form on trigger */}
                 <Popup-overlay trigger={buttonPopup}></Popup-overlay>
                 <Popup trigger={buttonPopup}>
-                  <form onSubmit={(e) => addTask()}>
-                    <div class="card-header text-white bg-primary">
-                      {windowIcon}
-                      {windowText} Task
-                    </div>
-                    <div class="card-body">
-                      <div class="form-group row">
-                        <div class="col">
-                          <input
-                            id="Title"
-                            name="Title"
-                            placeholder="Title"
-                            type="text"
-                            value={newTitle}
-                            onBlur={(e) => setNewTitle(e.target.value)}
-                            required="required"
-                            class="form-control"
-                            editable={true}
-                          />
-                        </div>
+                  <div class="card mb-3">
+                    <form onSubmit={(e) => addTask()}>
+                      <div class="card-header text-white bg-primary">
+                        {windowIcon}
+                        {windowText} Task
                       </div>
-                      <br></br>
-                      <div class="form-group row">
-                        <div class="col">
-                          <input
-                            id="Description"
-                            name="Description"
-                            placeholder="Description"
-                            type="text"
-                            defaultValue={newDescription}
-                            onBlur={(e) => setNewDescription(e.target.value)}
-                            class="form-control"
-                            required="required"
-                            editable={true}
-                          />
-                        </div>
-                      </div>
-                      <br></br>
-                      <div class="row">
-                        <div class="col">
-                          <div class="form-date">
-                            <br />
+                      <div class="card-body">
+                        <div class="form-group row">
+                          <div class="col">
                             <input
-                              id="Deadline"
-                              type="date"
-                              defaultValue={newDeadline}
-                              onBlur={(e) => setNewDeadline(e.target.value)}
+                              id="Title"
+                              name="Title"
+                              placeholder="Title"
+                              type="text"
+                              value={newTitle}
+                              onBlur={(e) => setNewTitle(e.target.value)}
+                              required="required"
+                              class="form-control"
+                              editable={true}
+                            />
+                          </div>
+                        </div>
+                        <br></br>
+                        <div class="form-group row">
+                          <div class="col">
+                            <input
+                              id="Description"
+                              name="Description"
+                              placeholder="Description"
+                              type="text"
+                              defaultValue={newDescription}
+                              onBlur={(e) => setNewDescription(e.target.value)}
                               class="form-control"
                               required="required"
+                              editable={true}
                             />
                           </div>
                         </div>
-                      </div>
-                      <br></br>
-                      <radioGroup row="true" defaultValue={newPriority}>
-                        <label class="form-label">Priority:</label>
-                        <div class="form-group row">
-                          <div class="custom-control custom-radio custom-control-inline">
-                            <input
-                              name="Priority"
-                              id="Priority_0"
-                              type="radio"
-                              class="custom-control-input"
-                              value="Low"
-                              onChange={(e) => setNewPriority(e.target.value)}
-                              required="required"
-                            />
-                            <label
-                              for="Priority_0"
-                              class="custom-control-label"
-                            >
-                              Low
-                            </label>
-                          </div>
-                          <div class="custom-control custom-radio custom-control-inline">
-                            <input
-                              name="Priority"
-                              id="Priority_1"
-                              type="radio"
-                              class="custom-control-input"
-                              value="Med"
-                              onChange={(e) => setNewPriority(e.target.value)}
-                              required="required"
-                            />
-                            <label
-                              for="Priority_1"
-                              class="custom-control-label"
-                            >
-                              Med
-                            </label>
-                          </div>
-                          <div class="custom-control custom-radio custom-control-inline">
-                            <input
-                              name="Priority"
-                              id="Priority_2"
-                              type="radio"
-                              class="custom-control-input"
-                              value="High"
-                              onChange={(e) => setNewPriority(e.target.value)}
-                              required="required"
-                            />
-                            <label
-                              for="Priority_2"
-                              class="custom-control-label"
-                            >
-                              High
-                            </label>
-                          </div>
-                          <hr></hr>
-                          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <div class="d-grid d-md-flex-content-between">
-                              <button
-                                type="submit"
-                                className="btn btn-primary btn-md"
-                              >
-                                {windowIcon}
-                                {windowText}
-                              </button>
-                              <button
-                                className="btn btn-danger btn-md"
-                                onClick={(e) => cancelPopup(e)}
-                              >
-                                <FontAwesomeIcon icon={faBan} /> Cancel
-                              </button>
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-date">
+                              <br />
+                              <input
+                                id="Deadline"
+                                type="date"
+                                defaultValue={newDeadline}
+                                onBlur={(e) => setNewDeadline(e.target.value)}
+                                class="form-control"
+                                required="required"
+                              />
                             </div>
                           </div>
                         </div>
-                      </radioGroup>
-                    </div>
-                  </form>
+                        <br></br>
+                        <radioGroup row="true" defaultValue={newPriority}>
+                          <div class="form-group row">
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <label class="form-label">Priority: </label>
+                              <input
+                                name="Priority"
+                                id="Priority_0"
+                                type="radio"
+                                class="custom-control-input"
+                                value="Low"
+                                onChange={(e) => setNewPriority(e.target.value)}
+                                required="required"
+                              />
+                              <label
+                                for="Priority_0"
+                                class="custom-control-label"
+                              >
+                                Low
+                              </label>
+                              <input
+                                name="Priority"
+                                id="Priority_1"
+                                type="radio"
+                                class="custom-control-input"
+                                value="Med"
+                                onChange={(e) => setNewPriority(e.target.value)}
+                                required="required"
+                              />
+                              <label
+                                for="Priority_1"
+                                class="custom-control-label"
+                              >
+                                Med
+                              </label>
+                              <input
+                                name="Priority"
+                                id="Priority_2"
+                                type="radio"
+                                class="custom-control-input"
+                                value="High"
+                                onChange={(e) => setNewPriority(e.target.value)}
+                                required="required"
+                              />
+                              <label
+                                for="Priority_2"
+                                class="custom-control-label"
+                              >
+                                High
+                              </label>
+                            </div>
+                            <hr></hr>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                              <div class="d-grid d-md-flex-content-between">
+                                <span>
+                                  <button
+                                    type="submit"
+                                    className="btn btn-primary btn-md"
+                                  >
+                                    {windowIcon}
+                                    {windowText}
+                                  </button>
+                                  <button
+                                    className="btn btn-danger btn-md"
+                                    onClick={(e) => cancelPopup(e)}
+                                  >
+                                    <FontAwesomeIcon icon={faBan} /> Cancel
+                                  </button>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </radioGroup>
+                      </div>
+                    </form>
+                  </div>
                 </Popup>
               </React.Fragment>
             );
