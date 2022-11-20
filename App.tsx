@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faPen,
+  faPenToSquare,
   faCirclePlus,
   faCircleXmark,
   faBars,
+  faBan,
 } from '@fortawesome/free-solid-svg-icons';
 import './style.css';
 import { toast, ToastContainer } from 'react-toastify';
@@ -54,7 +55,7 @@ export default function App() {
     setNewPriority(Priority);
     setButtonPopup(true);
     toast.warning('Updating' + ' ' + Title);
-    setWindowIcon(<FontAwesomeIcon icon={faPen} />);
+    setWindowIcon(<FontAwesomeIcon icon={faPenToSquare} />);
   };
 
   // function for when the add button is clicked
@@ -197,7 +198,8 @@ export default function App() {
                                 }
                               >
                                 <button className="btn btn-sm btn-primary">
-                                  <FontAwesomeIcon icon={faPen} /> UPDATE
+                                  <FontAwesomeIcon icon={faPenToSquare} />{' '}
+                                  UPDATE
                                 </button>
                               </span>
                             )}
@@ -337,7 +339,7 @@ export default function App() {
                                 className="btn btn-danger btn-md"
                                 onClick={(e) => cancelPopup(e)}
                               >
-                                <FontAwesomeIcon icon={faCircleXmark} /> Cancel
+                                <FontAwesomeIcon icon={faBan} /> Cancel
                               </button>
                             </div>
                           </div>
