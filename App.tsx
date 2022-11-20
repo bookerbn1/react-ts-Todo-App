@@ -78,6 +78,7 @@ export default function App() {
   const Popup = (props) => {
     return props.trigger ? (
       <div className="popup">
+        <div className="Popup-overlay"></div>
         <div className="popup-inner">{props.children}</div>
       </div>
     ) : (
@@ -216,6 +217,7 @@ export default function App() {
                 </div>
 
                 {/* popup form on trigger */}
+                <Popup-overlay trigger={buttonPopup}></Popup-overlay>
                 <Popup trigger={buttonPopup}>
                   <form onSubmit={(e) => addTask()}>
                     <div class="card-header text-white bg-primary">
