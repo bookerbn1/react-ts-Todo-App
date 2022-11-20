@@ -86,21 +86,6 @@ export default function App() {
     toast.success('Successfully completed a task!!');
   };
 
-  // change task
-  const changeTask = () => {
-    let newEntry = {
-      id: updateData.id,
-      Title: UpdateTitle,
-      Description: updateDescription,
-      Deadline: updateDeadline,
-      Priority: updatePriority,
-      IsComplete: updateData.IsComplete ? true : false,
-    };
-    setUpdateDate(newEntry);
-    updateTask();
-    // Calling toast method by passing string
-    toast('Task was edited succesfully');
-  };
   // prepopulate form with data to be updated
   const editTask = (id, Title, Description, Deadline, Priority) => {
     setNewTitle(Title);
@@ -114,10 +99,10 @@ export default function App() {
   // update task
   const updateTask = () => {
     setButtonPopupUpdate(false);
-
-    let filteredRecords = [...toDo].filter((task) => task.id !== updateData.id);
-    let updatedRecords = [...filteredRecords, updateData];
-    setToDo(updatedRecords);
+    setNewTitle();
+    setNewDeadline();
+    setNewDescription();
+    setNewPriority();
     toast.success('Successfully Updated a task');
   };
 
@@ -477,6 +462,7 @@ export default function App() {
                               <button
                                 type="submit"
                                 className="btn btn-primary btn-md"
+                                onClick={(e, id) => updateTask(id)}
                               >
                                 <FontAwesomeIcon icon={faCirclePlus} /> Update
                               </button>
