@@ -119,6 +119,7 @@ export default function App() {
       setToDo(newTask);
       toast.warning('Successfully Updated a task');
     }
+    // reset the states back to empty
     setNewTitle();
     setNewDeadline();
     setNewDescription();
@@ -162,7 +163,7 @@ export default function App() {
             return (
               <React.Fragment key={task.Title}>
                 <div className="col taskBg">
-                  <table>
+                  <table className="reactTable">
                     <th></th>
                     <tbody>
                       <td>{task.Title} </td>
